@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kdo</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-49JPX4DDG7"></script>
+    <script>
+       window.dataLayer = window.dataLayer || [];
+       function gtag(){dataLayer.push(arguments);}
+       gtag('js', new Date());
+       gtag('config', 'G-49JPX4DDG7');
+</script>
+
+</head>
+<style>
+    body {
+	background:
+radial-gradient(circle closest-side at 60% 43%, #323232 26%, rgba(187,0,51,0) 27%),
+radial-gradient(circle closest-side at 40% 43%, #323232 26%, rgba(187,0,51,0) 27%),
+radial-gradient(circle closest-side at 40% 22%, #373737 45%, rgba(221,51,85,0) 46%),
+radial-gradient(circle closest-side at 60% 22%, #373737 45%, rgba(221,51,85,0) 46%),
+radial-gradient(circle closest-side at 50% 35%, #373737 30%, rgba(221,51,85,0) 31%),
+
+radial-gradient(circle closest-side at 60% 43%, #323232 26%, rgba(187,0,51,0) 27%) 50px 50px,
+radial-gradient(circle closest-side at 40% 43%, #323232 26%, rgba(187,0,51,0) 27%) 50px 50px,
+radial-gradient(circle closest-side at 40% 22%, #3c3c3c 45%, rgba(221,51,85,0) 46%) 50px 50px,
+radial-gradient(circle closest-side at 60% 22%, #3c3c3c 45%, rgba(221,51,85,0) 46%) 50px 50px,
+radial-gradient(circle closest-side at 50% 35%, #3c3c3c 30%, rgba(221,51,85,0) 31%) 50px 50px;
+	background-color:#323232;
+	background-size:100px 100px;
+	font-family: 'Lato', sans-serif;
+	margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    height: 100vh; /* Set height to fill the viewport */
+}
+
+.centered {
+	text-align: center;
+    padding-top: 20vh; /* Add padding to center content vertically */
+
+}
+
+.centered h4 {
+	color: #FFFFFF;
+	font-size: 3em;
+	font-weight: bold;
+    margin-bottom: 20px; /* Add spacing between elements */
+
+}
+.gif-container {
+            margin-bottom: 20px; /* Add spacing between elements */
+        }
+
+.gif-container img {
+    max-width: 100%;
+    height: auto;
+    display: none;
+}
+
+ input[type=checkbox]{
+  display:none;
+ }
+
+label {
+	height: 40px;
+	width: auto;
+	padding: 10px 40px;
+	display: inline-block;
+	cursor: pointer;
+	margin: 0 20px;
+	border-radius: 5px;
+	color: #FFFFFF;
+	font-size: 1.5em;
+	line-height: 1.5em;
+	text-transform: uppercase;
+	transition: all .25s ease-in-out;
+}
+
+label:hover {
+	transform: 	scale(1.1,1.1);
+}
+
+.no {
+	background-color: #D8124B;
+}
+
+.yes {
+	background-color: #12D890;
+}
+
+.answer--yes, .answer--no {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	z-index: 9;
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity .5s ease-in-out;
+}
+
+input.yes[type=checkbox]:checked ~ .answer--yes {
+  visibility: visible;
+	opacity: 100;
+}
+
+input.no[type=checkbox]:checked ~ .answer--no {
+  visibility: visible;
+	opacity: 100;
+}
+
+p {
+    color: #c9c9c9;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+
+</style>
+<body>
+    <div class="centered col">
+        <h4>Heyyy Bou !! Want to be my Valentine ??? :) :) </h4>
+        <div class="gif-container" style="display:flex; justify-content:center;">
+            <img id="gifImage" src="" alt="GIF animé">
+        </div>
+        <input type="checkbox" name="answer" id="No">
+        <label for="No" class="no">Nop (rip kev)</label>
+
+        <input type="checkbox" name="answer" id="Yes">
+        <label for="Yes" class="yes" onclick="start(); trackButtonClick()">Yessss</label>
+    </div>
+</body>
+<script>
+    const yes = document.querySelector('.yes');
+    const no = document.querySelector('.no');
+    const centered = document.querySelector('.centered');
+    let no_counter = 1;
+
+    const no_values = ["Nop (rip kev)", "Sure ?", "Really sure ?", "Last chance", "Last chance (for real)", "NOOOOOOOOOOOOO WAY"];
+    const activities = ["Patinoire", "La tête dans les nuages", "Prendre un vol pour l'Italie", "Visite d'un musée", "Courir un semi marathon (stp non)"];
+    const miam = ["Japonais", "Salade tomate oignons chef (la poisse)", "Je fais cramer la cuisine", "Italien", "Manger des bieres :)", "Gastronomique"];
+
+    var scale = 1.1;
+    var gifIndex = 0; // Index to track the current GIF
+    var gifs = [
+        "https://media.giphy.com/media/l22ysLe54hZP0wubek/giphy.gif?cid=790b7611gq04b9mngjjj98cl370n9hmx4fu14xbirjd87u2r&ep=v1_gifs_search&rid=giphy.gif&ct=g",
+        "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZmtnZmsyMTVoYWVrbmlxZmFvY3gwaml2c2J3bDVsNTE1NTcwY2hweCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/AYMzMAgZIci8IgezfQ/giphy.gif",
+        "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2RmMDRwOThoZ2QzN2JlbmtreGp3cWpqbngyaTR1Z3FhZThhOW16ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZXx5vbAlQWHSHgEFDj/giphy.gif",
+        "https://media.giphy.com/media/yGesXBuMnMSdi/giphy.gif?cid=790b7611wi8op4yog7dsj6hrjg9qhybijrobnv69ozy16v4t&ep=v1_gifs_search&rid=giphy.gif&ct=g",
+        "https://media.giphy.com/media/258qZWyLCi0zJc6y1i/giphy.gif?cid=790b7611x39ogeltscl7luragkz68bub319te3w4qha33tyd&ep=v1_gifs_search&rid=giphy.gif&ct=g",
+        "https://media.giphy.com/media/y5HiWOnEOuClZRx0X5/giphy.gif?cid=ecf05e47ol1sjlz08j7vsrtzy29hvjt4ebocix1m8ct2wfbb&ep=v1_gifs_search&rid=giphy.gif&ct=g",
+        "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWU3bzUxNTJ4ZzFiaDR6dzRmanhwY2tzOG9rNmM1bGpkazJ2bHZxbiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/7SF5scGB2AFrgsXP63/giphy.gif",
+        "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3M0amZ4Y29kd2JvczFwOXhoZ3libmRtNDd2dG5pa2NxZzE5d2tuaSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/OPU6wzx8JrHna/giphy.gif"
+    ];
+    var shuffledGifs = shuffleArray(gifs.slice()); // Shuffled copy of the gifs array
+    var currentGifIndex = 0; // Index to track the current gif
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    function moverandom(object) {
+        object.style.position = "absolute";
+        object.style.left = getRandomInt(0, window.innerWidth - object.clientWidth) + "px";
+        object.style.top = getRandomInt(0, window.innerHeight - object.clientHeight) + "px";
+    }
+
+    function getRandomInt(min, max) {
+        const minCeiled = Math.ceil(min);
+        const maxFloored = Math.floor(max);
+        return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
+    }
+
+    yes.addEventListener('click', () => {
+        centered.innerHTML = '<h4>Bravo tu as (gagné jsp) un date avec uncurrysauvage ! :)</h4>';
+        // giff
+        centered.innerHTML += '<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcG9oc2JrbXdnNnJweHNueGhxcDY2ajhzaG5vMWR5MWlrcGc4eDJnNCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/Gpqk76tiVKjn2/giphy.gif" alt="giff">';
+        // text
+        centered.innerHTML += "<p>Quelques idées d'activités :)</p>";
+        centered.innerHTML += "<div class='slot-machine-act' id='slotMachineAct'><div id='reel1' style='color:#ffc0cb'></div></div>";
+        centered.innerHTML += "<p>Et de restos miam</p>";
+        centered.innerHTML += "<div class='slot-machine-miam' id='slotMachineMiam'><div id='reel2' style='color:#ffc0cb'></div></div>";
+
+    });
+
+    no.addEventListener('click', () => {
+        // Move button and change text
+        moverandom(no);
+        // Increase size
+        yes.style.transform = `scale(${scale}, ${scale})`;
+        scale *= 1.5;
+        // Change GIF
+        document.getElementById("gifImage").src = shuffledGifs[currentGifIndex];
+        currentGifIndex = (currentGifIndex + 1) % shuffledGifs.length; // Increment the index, and loop back to 0 if it reaches the end
+        // Show GIF
+        document.querySelector('.gif-container img').style.display = 'block';
+
+        document.querySelector('.no').textContent = no_values[no_counter % no_values.length];
+        no_counter++;
+    });
+
+
+    function spin_act() {
+        const reel1 = document.getElementById('reel1');
+        reel1.textContent = activities[Math.floor(Math.random() * activities.length)];
+    }
+
+    function spin_miam() {
+        const reel2 = document.getElementById('reel2');
+        reel2.textContent = miam[Math.floor(Math.random() * miam.length)];
+    }
+
+function start() {
+    const reel1 = document.getElementById('reel1');
+    const reel2 = document.getElementById('reel2');
+
+    const spins = 30;
+    const spinDuration = 100;
+    const spinSpeedDecreaseRate = 0.9;
+
+    let count = 0;
+    const spinInterval = setInterval(() => {
+        spin_act();
+        spin_miam();
+
+        count++;
+        if (count >= spins) {
+            clearInterval(spinInterval);
+        }
+        if (count === spins / 2) {
+            // At half the spins, decrease the spin duration
+            clearInterval(spinInterval); // Clear the existing interval
+            const newSpinInterval = setInterval(() => {
+                spin_act();
+                spin_miam();
+                count++;
+                if (count >= spins) {
+                    clearInterval(newSpinInterval);
+                }
+            }, spinDuration * spinSpeedDecreaseRate); // Decrease the spin duration
+        }
+    }, spinDuration);
+}
+
+function trackButtonClick() {
+        gtag('send', 'event', {
+            eventCategory: 'Button',
+            eventAction: 'click',
+            eventLabel: 'Yes Button'
+        });
+    }
+</script>
+</html>
